@@ -2,7 +2,10 @@
   <div>
     <h3>Todos</h3>
     <div class="todos">
-      <div v-for="todo in allTodos" :key="todo.id" class="todo">{{todo.title}}</div>
+      <div v-for="todo in allTodos" :key="todo.id" class="todo">
+        {{todo.title}}
+        <i class="fas fa-trash-alt" @click="deleteTodo(todo.id)"></i>
+      </div>
     </div>
   </div>
 </template>
@@ -13,10 +16,10 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Todos",
   created() {
-      this.fetchTodos();
+    this.fetchTodos();
   },
   methods: {
-      ...mapActions(['fetchTodos'])
+    ...mapActions(["fetchTodos", "deleteTodo"])
   },
   computed: mapGetters(["allTodos"])
 };
@@ -24,18 +27,26 @@ export default {
 
 <style>
 .todos {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1rem;
 }
 
 .todo {
-    border: 1px solid #333;
-    background: #41b883;
-    padding: 1rem;
-    border-radius: 5px;
-    text-align: center;
-    position: relative;
-    cursor: pointer;
+  border: 1px solid #333;
+  background: #41b883;
+  padding: 1rem;
+  border-radius: 5px;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+}
+
+i {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: #fff;
+  cursor: pointer;
 }
 </style>
